@@ -370,3 +370,52 @@ agent.run(adversarial_prompt)
 ```
 
 The Self Ask With Search chain allows an agent to use search for answering questions, while the Max Iterations example demonstrates setting a limit on the number of steps an agent takes to prevent it from getting stuck in an infinite loop or taking too many steps. This cheat sheet helps you set up both examples and interact with them.
+
+# LLMChain:
+
+## Single Input Example
+```
+from langchain import PromptTemplate, OpenAI, LLMChain
+
+# Define the prompt template with an input variable
+template = """Question: {question}
+
+Answer: Let's think step by step."""
+prompt = PromptTemplate(template=template, input_variables=["question"])
+
+# Initialize LLMChain with the prompt and LLM
+llm_chain = LLMChain(prompt=prompt, llm=OpenAI(temperature=0), verbose=True)
+
+# Call predict with input value for the input variable
+question = "What NFL team won the Super Bowl in the year Justin Beiber was born?"
+llm_chain.predict(question=question)
+```
+
+## Multiple Inputs Example
+```
+from langchain import PromptTemplate, OpenAI, LLMChain
+
+# Define the prompt template with multiple input variables
+template = """Write a {adjective} poem about {subject}."""
+prompt = PromptTemplate(template=template, input_variables=["adjective", "subject"])
+
+# Initialize LLMChain with the prompt and LLM
+llm_chain = LLMChain(prompt=prompt, llm=OpenAI(temperature=0), verbose=True)
+
+# Call predict with input values for the input variables
+llm_chain.predict(adjective="sad", subject="ducks")
+```
+
+## From String Example
+```
+from langchain import OpenAI, LLMChain
+
+# Define the prompt template as a string with input variables
+template = """Write a {adjective} poem about {subject}."""
+
+# Initialize LLMChain from the prompt template string and LLM
+llm_chain = LLMChain.from_string(llm=OpenAI(temperature=0), template=template)
+
+# Call predict with input values for the input variables
+llm_chain.predict(adjective="sad", subject="ducks")
+```
