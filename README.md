@@ -30,8 +30,7 @@ memory = ConversationBufferMemory(memory_key="chat_history", return_messages=Tru
 llm = ChatOpenAI(temperature=0)
 agent_chain = initialize_agent(tools, llm, agent="chat-conversational-react-description", verbose=True, memory=memory)
 ```
-
-# OpenAPI Agent
+# OpenAPI Agent 
 **Summary**:
 The OpenAPI Agent is designed to interact with an OpenAPI spec and make correct API requests based on the information gathered from the spec. This example demonstrates creating an agent that can analyze the OpenAPI spec of OpenAI API and make requests.
 
@@ -72,6 +71,39 @@ openapi_agent_executor.run("Make a post request to openai /completions. The prom
 ```
 
 The OpenAPI Agent allows you to analyze the OpenAPI spec of an API and make requests based on the information it gathers. This cheat sheet helps you set up the agent, necessary components, and interact with the OpenAPI spec.
+
+# Python Agent:
+
+**Summary**:
+The Python Agent is designed to write and execute Python code to answer a question. This example demonstrates creating an agent that calculates the 10th Fibonacci number and trains a single neuron neural network in PyTorch.
+
+**Cheat Sheet**:
+
+1. **Import necessary libraries and create Python Agent**:
+```python
+from langchain.agents.agent_toolkits import create_python_agent
+from langchain.tools.python.tool import PythonREPLTool
+from langchain.python import PythonREPL
+from langchain.llms.openai import OpenAI
+
+agent_executor = create_python_agent(
+    llm=OpenAI(temperature=0, max_tokens=1000),
+    tool=PythonREPLTool(),
+    verbose=True
+)
+```
+
+2. **Fibonacci Example**:
+```python
+agent_executor.run("What is the 10th fibonacci number?")
+```
+
+3. **Training a Single Neuron Neural Network in PyTorch**:
+```python
+agent_executor.run("""Understand, write a single neuron neural network in PyTorch.
+Take synthetic data for y=2x. Train for 1000 epochs and print every 100 epochs.
+Return prediction for x = 5""")
+```
 
 
 # LANGCHAIN TOOLS
