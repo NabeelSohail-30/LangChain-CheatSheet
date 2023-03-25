@@ -8,8 +8,9 @@ LangChain CheatSheet
    - Initialize memory using `ConversationBufferMemory`.
    - Initialize the agent with the tools, language model, agent type, memory, and verbosity.
    - Run the agent with user inputs to get conversational responses.
-**Creating a Conversation Agent optimized for chatting**:
-*codesnippet:
+ 
+*Code snippets:
+
 ```python
 from langchain.agents import Tool, initialize_agent
 from langchain.memory import ConversationBufferMemory
