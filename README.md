@@ -326,3 +326,47 @@ async_agent = initialize_agent(async_tools, llm, agent="zero-shot-react-descript
 await async_agent.arun(questions[0])
 await aiosession.close()
 ```
+
+**Self Ask && Max Iterations**:
+1. The Self Ask With Search chain demonstrates an agent that uses search to answer questions.
+2. The Max Iterations example shows how to limit the number of steps an agent takes to prevent it from taking too many steps, which can be useful for adversarial prompts.
+
+**Cheat Sheet**:
+
+1. **Self Ask With Search chain**:
+```python
+from langchain import OpenAI, SerpAPIWrapper
+from langchain.agents import initialize_agent, Tool
+
+llm = OpenAI(temperature=0)
+search = SerpAPIWrapper()
+tools = [
+    Tool(
+        name="Intermediate Answer",
+        func=search.run,
+        description="useful for when you need to ask with search"
+    )
+]
+
+self_ask_with_search = initialize_agent(tools, llm, agent="self-ask-with-search", verbose=True)
+self_ask_with_search.run("What is the hometown of the reigning men's U.S. Open champion?")
+```
+
+2. **Max Iterations example**:
+```python
+from langchain.agents import load_tools
+from langchain.agents import initialize_agent
+from langchain.llms import OpenAI
+
+llm = OpenAI(temperature=0)
+tools = load_tools(["serpapi", "llm-math"], llm=llm)
+
+# Adversarial prompt example
+adversarial_prompt = """..."""
+
+# Initialize agent with max_iterations and early_stopping_method
+agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True, max_iterations=2, early_stopping_method="generate")
+agent.run(adversarial_prompt)
+```
+
+The Self Ask With Search chain allows an agent to use search for answering questions, while the Max Iterations example demonstrates setting a limit on the number of steps an agent takes to prevent it from getting stuck in an infinite loop or taking too many steps. This cheat sheet helps you set up both examples and interact with them.
