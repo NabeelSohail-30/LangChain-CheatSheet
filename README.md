@@ -9,7 +9,7 @@ LangChain CheatSheet
    - Initialize the agent with the tools, language model, agent type, memory, and verbosity.
    - Run the agent with user inputs to get conversational responses.
  
-*Code snippets:
+**Code snippets:
 
 ```python
 from langchain.agents import Tool, initialize_agent
@@ -30,6 +30,48 @@ memory = ConversationBufferMemory(memory_key="chat_history", return_messages=Tru
 llm = ChatOpenAI(temperature=0)
 agent_chain = initialize_agent(tools, llm, agent="chat-conversational-react-description", verbose=True, memory=memory)
 ```
+
+# OpenAPI Agent
+**Summary**:
+The OpenAPI Agent is designed to interact with an OpenAPI spec and make correct API requests based on the information gathered from the spec. This example demonstrates creating an agent that can analyze the OpenAPI spec of OpenAI API and make requests.
+
+**Cheat Sheet**:
+
+1. **Import necessary libraries and load OpenAPI spec**:
+```python
+import os
+import yaml
+from langchain.agents import create_openapi_agent
+from langchain.agents.agent_toolkits import OpenAPIToolkit
+from langchain.llms.openai import OpenAI
+from langchain.requests import RequestsWrapper
+from langchain.tools.json.tool import JsonSpec
+
+with open("openai_openapi.yml") as f:
+    data = yaml.load(f, Loader=yaml.FullLoader)
+json_spec = JsonSpec(dict_=data, max_value_length=4000)
+```
+
+2. **Set up the necessary components**:
+```python
+headers = {
+    "Authorization": f"Bearer {os.getenv('OPENAI_API_KEY')}"
+}
+requests_wrapper = RequestsWrapper(headers=headers)
+openapi_toolkit = OpenAPIToolkit.from_llm(OpenAI(temperature=0), json_spec, requests_wrapper, verbose=True)
+openapi_agent_executor = create_openapi_agent(
+    llm=OpenAI(temperature=0),
+    toolkit=openapi_toolkit,
+    verbose=True
+)
+```
+
+3. **Example: agent capable of analyzing OpenAPI spec and making requests**:
+```python
+openapi_agent_executor.run("Make a post request to openai /completions. The prompt should be 'tell me a joke.'")
+```
+
+The OpenAPI Agent allows you to analyze the OpenAPI spec of an API and make requests based on the information it gathers. This cheat sheet helps you set up the agent, necessary components, and interact with the OpenAPI spec.
 
 
 # LANGCHAIN TOOLS
