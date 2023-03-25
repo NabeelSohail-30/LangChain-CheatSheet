@@ -105,6 +105,138 @@ Take synthetic data for y=2x. Train for 1000 epochs and print every 100 epochs.
 Return prediction for x = 5""")
 ```
 
+Cheat Sheet for LangChain and Pinecone
+
+1. Connecting to Pinecone
+```python
+import pinecone
+pinecone.deinit()
+pinecone.init(api_key="YOUR_PINECONE_API_KEY")
+```
+
+2. Create a Pinecone Service
+```python
+pinecone_service = pinecone.Service()
+```
+
+3. Create an Embedding Model
+```python
+from langchain.embeddings.openai import OpenAIEmbeddings
+embeddings = OpenAIEmbeddings()
+```
+
+4. Create a Vectorstore
+```python
+from langchain.vectorstores import Chroma
+vectorstore = Chroma(embeddings, pinecone_service)
+```
+
+5. Initialize LLM (Language Model)
+```python
+from langchain.llms import OpenAI
+llm = OpenAI(temperature=0)
+```
+
+6. Create TextLoader to load documents
+```python
+from langchain.document_loaders import TextLoader
+loader = TextLoader('file_path.txt')
+documents = loader.load()
+```
+
+7. Split documents into chunks
+```python
+from langchain.text_splitter import CharacterTextSplitter
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+texts = text_splitter.split_documents(documents)
+```
+
+8. Upload documents to Pinecone Vectorstore
+```python
+from langchain.vectorstores import Chroma
+docsearch = Chroma.from_documents(texts, embeddings, collection_name="collection_name")
+```
+
+9. Create RetrievalQA Chain
+```python
+from langchain.chains import RetrievalQA
+retrieval_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=docsearch.as_retriever())
+```
+
+10. Create an Agent
+```python
+from langchain.agents import initialize_agent, Tool
+
+tools = [
+    Tool(
+        name="Example QA System",
+        func=retrieval_qa.run,
+        description="Example description of the tool."
+    ),
+]
+
+agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
+```
+
+11. Use Agent
+```python
+agent.run("Ask a question related to the documents")
+```
+
+12. (Optional) Create a new tool to upload file from URL to Pinecone
+
+```python
+import requests
+import textract
+import tempfile
+from urllib.parse import urlparse
+
+
+def upload_url_to_pinecone(url: str, collection_name: str):
+    # Download the file from the URL
+    response = requests.get(url)
+    
+    # Get the file extension from the URL
+    file_extension = urlparse(url).path.split('.')[-1]
+
+    # Save the file as a temporary file
+    with tempfile.NamedTemporaryFile(suffix=f'.{file_extension}', delete=False) as temp_file:
+        temp_file.write(response.content)
+        temp_file_path = temp_file.name
+
+    # Extract text from the file
+    extracted_text = textract.process(temp_file_path).decode('utf-8')
+
+    # Split the extracted text into chunks
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    texts = text_splitter.split_text(extracted_text)
+
+    # Create a Chroma instance and upload the chunks to the Pinecone collection
+    docsearch = Chroma.from_documents(texts, embeddings, collection_name=collection_name)
+
+    # Clean up the temporary file
+    os.remove(temp_file_path)
+```
+
+`upload_url_to_pinecone` function can handle various file formats, including PDF, DOC, DOCX, XLS, XLSX, etc. You can use this function as a tool in your agent:
+
+```python
+tools.append(
+    Tool(
+        name="Upload URL to Pinecone",
+        func=upload_url_to_pinecone,
+        description="Takes a URL and uploads the file content as a vector to the specified Pinecone collection. Provide the URL and collection name as input."
+    )
+)
+
+agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
+```
+
+13. Deinitialize Pinecone when done
+```python
+pinecone.deinit()
+```
+
 
 # LANGCHAIN TOOLS
 **Cheat Sheet**:
