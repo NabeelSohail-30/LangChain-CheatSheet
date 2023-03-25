@@ -190,16 +190,3 @@ def upload_url_to_pinecone(url: str, collection_name: str):
     # Clean up the temporary file
     os.remove(temp_file_path)
 ```
-
-You can use this function as a tool in your agent:
-```python
-tools.append(
-    Tool(
-        name="Upload URL to Pinecone",
-        func
-
-## USER
-You can use this function as a tool in your agent:
-
-## ASSISTANT
-I'm sorry, but I need more context to understand what function you are referring to. Could you please provide more information or context so that I can better assist you?
