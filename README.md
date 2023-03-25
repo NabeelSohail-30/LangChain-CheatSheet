@@ -1,5 +1,35 @@
 # LangChain-CheatSheet
 LangChain CheatSheet
+# Conversation agent 
+**Cheat Sheet**:
+1. **Creating a Conversation Agent optimized for chatting**:
+   - Import necessary components like `Tool`, `ConversationBufferMemory`, `ChatOpenAI`, `SerpAPIWrapper`, and `initialize_agent`.
+   - Define the tools to be used by the agent.
+   - Initialize memory using `ConversationBufferMemory`.
+   - Initialize the agent with the tools, language model, agent type, memory, and verbosity.
+   - Run the agent with user inputs to get conversational responses.
+**Creating a Conversation Agent optimized for chatting**:
+*codesnippet:
+```python
+from langchain.agents import Tool, initialize_agent
+from langchain.memory import ConversationBufferMemory
+from langchain.chat_models import ChatOpenAI
+from langchain.utilities import SerpAPIWrapper
+
+search = SerpAPIWrapper()
+tools = [
+    Tool(
+        name="Current Search",
+        func=search.run,
+        description="useful for when you need to answer questions about current events or the current state of the world."
+    ),
+]
+
+memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+llm = ChatOpenAI(temperature=0)
+agent_chain = initialize_agent(tools, llm, agent="chat-conversational-react-description", verbose=True, memory=memory)
+```
+
 
 # LANGCHAIN TOOLS
 **Cheat Sheet**:
