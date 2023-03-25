@@ -1,9 +1,56 @@
 # LangChain-CheatSheet
 LangChain CheatSheet
 
+# LANGCHAIN TOOLS
+**Cheat Sheet**:
 
-LANGCHAIN Async API for Agent
-Cheat Sheet:
+1. **Creating custom tools with the tool decorator**:
+   - Import `tool` from `langchain.agents`.
+   - Use the `@tool` decorator before defining your custom function.
+   - The decorator uses the function name as the tool name by default, but it can be overridden by passing a string as the first argument.
+   - The function's docstring will be used as the tool's description.
+
+2. **Modifying existing tools**:
+   - Load existing tools using the `load_tools` function.
+   - Modify the properties of the tools, such as the name.
+   - Initialize the agent with the modified tools.
+
+3. **Defining priorities among tools**:
+   - Add a statement like "Use this more than the normal search if the question is about Music" to the tool's description.
+   - This helps the agent prioritize custom tools over default tools when appropriate.
+
+
+1. **Creating custom tools with the tool decorator**:
+```python
+from langchain.agents import tool
+
+@tool
+def search_api(query: str) -> str:
+    """Searches the API for the query."""
+    return "Results"
+```
+
+2. **Modifying existing tools**:
+```python
+from langchain.agents import load_tools
+tools = load_tools(["serpapi", "llm-math"], llm=llm)
+tools[0].name = "Google Search"
+agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
+```
+
+3. **Defining priorities among tools**:
+```python
+tools = [
+    Tool(
+        name="Music Search",
+        func=lambda x: "'All I Want For Christmas Is You' by Mariah Carey.",
+        description="A Music search engine. Use this more than the normal search if the question is about Music, like 'who is the singer of yesterday?' or 'what is the most popular song in 2022?'",
+    )
+]
+```
+
+
+#  LANGCHAIN Async API for Agent
 
 1. Use asyncio to run multiple agents concurrently.
 2. Create an aiohttp.ClientSession for more efficient async requests.
