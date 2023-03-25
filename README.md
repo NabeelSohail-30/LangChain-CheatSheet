@@ -419,3 +419,60 @@ llm_chain = LLMChain.from_string(llm=OpenAI(temperature=0), template=template)
 # Call predict with input values for the input variables
 llm_chain.predict(adjective="sad", subject="ducks")
 ```
+
+
+# Sequential Chains:
+
+1. Import the necessary classes:
+```python
+from langchain.llms import OpenAI
+from langchain.chains import LLMChain, SimpleSequentialChain, SequentialChain
+from langchain.prompts import PromptTemplate
+```
+
+2. Create LLMChain instances:
+```python
+llm = OpenAI(temperature=0.7)
+synopsis_template = "Write synopsis for {title}"
+synopsis_prompt = PromptTemplate(input_variables=["title"], template=synopsis_template)
+synopsis_chain = LLMChain(llm=llm, prompt=synopsis_prompt)
+
+llm = OpenAI(temperature=0.7)
+review_template = "Write review for {synopsis}"
+review_prompt = PromptTemplate(input_variables=["synopsis"], template=review_template)
+review_chain = LLMChain(llm=llm, prompt=review_prompt)
+```
+
+3. Create a SimpleSequentialChain instance:
+```python
+simple_seq_chain = SimpleSequentialChain(chains=[synopsis_chain, review_chain])
+output = simple_seq_chain.run("Tragedy at Sunset on the Beach")
+```
+
+4. Create a SequentialChain instance with multiple inputs and outputs:
+```python
+seq_chain = SequentialChain(
+    chains=[synopsis_chain, review_chain],
+    input_variables=["title", "era"],
+    output_variables=["synopsis", "review"]
+)
+output = seq_chain({"title": "Tragedy at Sunset on the Beach", "era": "Victorian England"})
+```
+
+5. Add a SimpleMemory instance to pass context along the chain:
+```python
+from langchain.memory import SimpleMemory
+
+memory = SimpleMemory(memories={"time": "December 25th, 8pm PST", "location": "Theater in the Park"})
+social_template = "Create social media post with {synopsis} and {review} and {time} and {location}"
+social_prompt = PromptTemplate(input_variables=["synopsis", "review", "time", "location"], template=social_template)
+social_chain = LLMChain(llm=llm, prompt=social_prompt)
+
+seq_chain = SequentialChain(
+    memory=memory,
+    chains=[synopsis_chain, review_chain, social_chain],
+    input_variables=["title", "era"],
+    output_variables=["social_media_post"]
+)
+output = seq_chain({"title": "Tragedy at Sunset on the Beach", "era": "Victorian England"})
+```
