@@ -1,4 +1,6 @@
 # LangChain-CheatSheet
+![Cute cat]https://cdn.discordapp.com/attachments/1063949754737897503/1091051676024176710/Tor_A_digital_art_piece_portraying_a_cyberpunk_llama_sitting_at_d4c5b531-222a-4af4-b49f-8e0f57197725.png" A cute cat")
+
 LangChain CheatSheet
 # Conversation agent 
 **Cheat Sheet**:
