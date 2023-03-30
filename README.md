@@ -1,7 +1,12 @@
-# LangChain-CheatSheet
-![Cute cat]"https://cdn.discordapp.com/attachments/1063949754737897503/1091065376860811344/Tor_A_photograph_of_a_cyberpunk_llama_wearing_glasses_and_a_big_2bf00e18-749d-4e88-a6a9-a4b586742f89.png" "A cute cat")
+<div align="center">
+  <a href="https://github.com/Tor101/LangChain-CheatSheet" target="_blank">
+    <img width="690" src="https://cdn.discordapp.com/attachments/1063949754737897503/1091065376860811344/Tor_A_photograph_of_a_cyberpunk_llama_wearing_glasses_and_a_big_2bf00e18-749d-4e88-a6a9-a4b586742f89.png" alt="logo">
+  </a>
+  <h1 id="LangChainCheatSheet"><a href="https://github.com/Tor101/LangChain-CheatSheet" target="_blank">LangChain CheatSheet</a></h1>
+  <p>@Tor101</p>
+</div>
 
-LangChain CheatSheet
+
 # Conversation agent 
 **Cheat Sheet**:
 1. **Creating a Conversation Agent optimized for chatting**:
