@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/Tor101/LangChain-CheatSheet" target="_blank">
-    <img width="690" src="https://cdn.discordapp.com/attachments/1063949754737897503/1091065376860811344/Tor_A_photograph_of_a_cyberpunk_llama_wearing_glasses_and_a_big_2bf00e18-749d-4e88-a6a9-a4b586742f89.png" alt="logo">
+    <img width="690" src="https://cdn.midjourney.com/7417d976-0c9f-4f37-8a87-5c4bf60b410f/0_3.png" alt="logo">
   </a>
   <h1 id="LangChainCheatSheet"><a href="https://github.com/Tor101/LangChain-CheatSheet" target="_blank">LangChain CheatSheet</a></h1>
   <p>@Tor101</p>
