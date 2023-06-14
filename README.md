@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/Tor101/LangChain-CheatSheet" target="_blank">
-    <img width="690" src="https://cdn.midjourney.com/7417d976-0c9f-4f37-8a87-5c4bf60b410f/0_3.png" alt="logo">
+    <img width="690" src="https://cdn.midjourney.com/0acf8f1d-8392-4680-ae8c-502132d591f6/grid_0.png" alt="logo">
   </a>
   <h1 id="LangChainCheatSheet"><a href="https://github.com/Tor101/LangChain-CheatSheet" target="_blank">LangChain CheatSheet</a></h1>
   <p>@Tor101</p>
