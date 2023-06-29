@@ -17,12 +17,6 @@ Twitter has started cracking down heavily on users who use bots like this one to
 
 I hold no liability for what you do with this bot or what happens to you by using this bot. Abusing this bot *can* get you banned from Twitter, so make sure to read up on [proper usage](https://support.twitter.com/articles/76915-automation-rules-and-best-practices) of the Twitter API.
 
-## Installation
-
-You can install the Twitter Follow Bot using `pip`:
-
-    pip install TwitterFollowBot
-
 ## Dependencies
 
 You will need to install Python's [python-twitter](https://github.com/sixohsix/twitter/) library:
